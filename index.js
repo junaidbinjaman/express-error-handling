@@ -1,34 +1,18 @@
-const express = require("express");
+const express = require('express');
+const fs = require('fs');
 
 const app = express();
 
-app.get("/", (req, res) => {
-  for (let i = 0; i < 10; i++) {
-    if (i === 5) {
-      next("There was as error");
-    } else {
-      res.write("a");
-    }
-  }
-  res.end();
-});
+app.get('/', (req, res) => {
+  fs.readFile("/Users/imac/Documents/Codes/classes/class-40/test.txt", (err, data) => {
+    if(err) {
+      
+    }else {
 
-app.use((req, res, next) => {
-  next("Requested URL was not found");
-});
-
-app.use((err, req, res, next) => {
-  if (res.headersSent) {
-    next("There was a problem");
-  } else {
-    if (err.message) {
-      res.status(500).send(err.message);
-    } else {
-      res.status(500).send("There was an error");
     }
-  }
-});
+  })
+})
 
 app.listen(3000, () => {
-  console.log("App listening at port 3000");
-});
+  console.log('App listening at port 3000');
+})
